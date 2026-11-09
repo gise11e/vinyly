@@ -1,0 +1,7 @@
+{
+  "name": "vinyly",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve ."
+  }
+}

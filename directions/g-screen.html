@@ -1,0 +1,84 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Vinyly · Vinyly's Home Page · Order form</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&amp;family=Tinos:ital,wght@0,400;0,700;1,400&amp;family=VT323&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0000EE}
+@keyframes of-rainbow{to{background-position:400px 0}}
+@keyframes of-blink{50%{visibility:hidden}}
+@keyframes of-up{0%{width:2%}100%{width:100%}}
+@keyframes of-pop{0%,10%{transform:scale(0)}16%{transform:scale(1.1)}20%,100%{transform:scale(1)}}
+@keyframes of-hand{0%,100%{transform:translateX(0)}50%{transform:translateX(10px)}}
+@keyframes of-spin{to{transform:rotate(360deg)}}
+.of-rainbow{background-image:linear-gradient(90deg,#FF0000,#FF9900,#FFFF00,#00FF00,#00FFFF,#0000FF,#FF00FF,#FF0000);background-size:400px 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:of-rainbow 2s linear infinite}
+.of-hr{height:6px;background-image:linear-gradient(90deg,#FF0000,#FF9900,#FFFF00,#00FF00,#00FFFF,#0000FF,#FF00FF,#FF0000);background-size:400px 100%;animation:of-rainbow 1.5s linear infinite}
+.of-blink{animation:of-blink 1s steps(1) infinite}
+.of-up{animation:of-up 9s steps(30) infinite}
+.of-pop{animation:of-pop 8s ease-out infinite}
+.of-hand{animation:of-hand .8s ease-in-out infinite}
+.of-spin{animation:of-spin 2s linear infinite}
+.of-paper{background-color:#FFFFF0;background-image:linear-gradient(#E6E6FA 1px,transparent 1px),linear-gradient(90deg,#E6E6FA 1px,transparent 1px);background-size:24px 24px}
+.of-win{background:#C0C0C0;border:3px outset #FFFFFF;box-shadow:2px 2px 0 #000}
+.of-title{background:linear-gradient(90deg,#000080,#1084D0);color:#FFF;font-family:'Tinos',serif;font-weight:700;padding:3px 6px;display:flex;justify-content:space-between;align-items:center}
+.of-btn{font-family:'Tinos',serif;font-size:17px;background:#C0C0C0;border:3px outset #FFFFFF;padding:6px 14px;color:#000}
+td,th{border:2px inset #C0C0C0;padding:10px 12px;vertical-align:top}
+@media (prefers-reduced-motion: reduce){.of-rainbow,.of-hr,.of-blink,.of-up,.of-pop,.of-hand,.of-spin{animation:none}}
+</style>
+</head><body>
+
+<div class="of-paper" style="min-height: 1200px; font-family: 'Tinos', serif; color: #000; padding: 30px 20px; box-sizing: border-box; position: relative">
+  <div style="max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 16px"><a href="#">&lt;&lt; Back 2 Home</a><span>Step <b>2</b> of <b>3</b></span></div>
+    <h1 class="of-rainbow" style="margin: 0; text-align: center; font-weight: 700; font-style: italic; font-size: 58px">ORDER UR RECORD!!!</h1>
+    <p style="margin: 0; text-align: center; font-family: 'Comic Neue', cursive; font-size: 19px">Fill in the form below &amp; hit <b>Submit</b>. Fields with a <font color="#FF0000">*</font> are REQUIRED!!</p>
+    <div class="of-hr" role="separator"></div>
+
+    <form>
+      <table style="width: 100%; border: 3px outset #C0C0C0; border-collapse: separate; border-spacing: 3px; background: #FFFFFF; font-size: 18px">
+        <tr><th colspan="2" style="background: #000080; color: #FFFFFF; text-align: left; font-size: 20px">1. Ur Record</th></tr>
+        <tr><td style="width: 260px"><b>Format</b> <font color="#FF0000">*</font></td><td>
+          <label style="margin-right: 18px"><input type="radio" name="f"> Centre Print</label>
+          <label style="margin-right: 18px"><input type="radio" name="f" checked> Full Print (£65) <span class="of-blink" style="color: #FF0000; font-weight: 700">HOT!</span></label>
+          <label><input type="radio" name="f"> Heart Shape ♥</label></td></tr>
+        <tr><td><b>Disc photo</b> <font color="#FF0000">*</font></td><td><div style="display: flex; gap: 14px; align-items: center"><img src="images/ai-original.jpg" alt="Uploaded photo thumbnail" style="width: 90px; height: 60px; object-fit: cover; border: 2px inset #C0C0C0"><span>grandad_boat.JPG <font color="#008000">(OK!)</font></span></div></td></tr>
+        <tr><td><b>Make it look kool w/ AI</b></td><td>
+          <div style="display: flex; gap: 16px; flex-wrap: wrap; font-size: 16px">
+            <label style="display: flex; flex-direction: column; align-items: center; gap: 4px"><img src="images/ai-original.jpg" alt="" style="width: 80px; height: 60px; object-fit: cover; border: 2px inset #C0C0C0"><span><input type="radio" name="s"> Normal</span></label>
+            <label style="display: flex; flex-direction: column; align-items: center; gap: 4px"><img src="images/ai-70s.jpg" alt="" style="width: 80px; height: 60px; object-fit: cover; border: 2px inset #C0C0C0"><span><input type="radio" name="s"> 70's</span></label>
+            <label style="display: flex; flex-direction: column; align-items: center; gap: 4px"><img src="images/ai-aime.jpg" alt="" style="width: 80px; height: 60px; object-fit: cover; border: 2px inset #C0C0C0"><span><input type="radio" name="s"> Aimé</span></label>
+            <label style="display: flex; flex-direction: column; align-items: center; gap: 4px"><img src="images/ai-oil.jpg" alt="" style="width: 80px; height: 60px; object-fit: cover; border: 3px solid #FF0000"><span><input type="radio" name="s" checked> <b>Oil Painting</b></span></label>
+          </div></td></tr>
+        <tr><td><b>Sleeve colour</b></td><td><select style="font: inherit; font-size: 17px"><option>Red</option><option selected>Navy Blue</option><option>Lime Green</option><option>Hot Pink</option><option>Black</option></select></td></tr>
+
+        <tr><th colspan="2" style="background: #000080; color: #FFFFFF; text-align: left; font-size: 20px">2. Ur Songs</th></tr>
+        <tr><td><b>Upload MP3 / WAV</b> <font color="#FF0000">*</font></td><td><div style="display: flex; flex-direction: column; gap: 8px">
+          <span>1. sailing_song.mp3 <font color="#008000">✓ uploaded</font></span>
+          <span>2. grandads_whistle.wav <font color="#008000">✓ uploaded</font></span>
+          <span style="display: flex; align-items: center; gap: 10px">3. summer_mix.wav <span style="flex: 1; height: 18px; border: 2px inset #C0C0C0; background: #FFFFFF; display: block"><span class="of-up" style="display: block; height: 100%; background: repeating-linear-gradient(90deg, #000080 0 12px, #FFFFFF 12px 14px)"></span></span></span>
+          <span style="font-size: 15px; color: #808080">Uploading on a 56k modem? Go make a sandwich. We'll wait :-)</span>
+          <span style="font-size: 16px"><input type="file"> or <a href="#">import a playlist</a></span>
+        </div></td></tr>
+
+        <tr><th colspan="2" style="background: #000080; color: #FFFFFF; text-align: left; font-size: 20px">3. Is it a GIFT??</th></tr>
+        <tr><td><b>Gift options</b></td><td><div style="display: flex; flex-direction: column; gap: 8px">
+          <label><input type="checkbox" checked> Yes!! Send it straight 2 them</label>
+          <label><input type="checkbox" checked> Hide the prices (don't be tacky)</label>
+          <label style="display: flex; flex-direction: column; gap: 4px">Gift message:<textarea rows="3" cols="50" style="font-family: 'Comic Neue', cursive; font-size: 17px">Happy Fathers Day Grandad!!! luv Leo xoxo</textarea></label>
+        </div></td></tr>
+        <tr><td><b>Promo code</b></td><td><input type="text" size="20" style="font: inherit; font-size: 17px"> <button type="button" class="of-btn" style="font-size: 15px; padding: 3px 10px">Apply</button></td></tr>
+        <tr><td colspan="2" style="text-align: center; background: #FFFFCC; font-size: 22px"><b>TOTAL: £65.00</b> <span style="font-size: 15px">(+ free UK shipping!!)</span></td></tr>
+        <tr><td colspan="2" style="text-align: center; padding: 18px"><span class="of-hand" aria-hidden="true" style="display: inline-block; font-size: 28px; margin-right: 10px">☞</span><button type="button" class="of-btn" style="font-size: 22px; font-weight: 700; padding: 10px 26px">Submit Query</button> <button type="reset" class="of-btn" style="font-size: 22px; padding: 10px 26px">Reset</button></td></tr>
+      </table>
+    </form>
+    <p style="margin: 0; text-align: center; font-size: 15px; color: #404040">Problems w/ the form? <a href="#">E-mail the webmaster</a> · This page works best with JavaScript turned ON</p>
+  </div>
+
+  <div class="of-win of-pop" role="alertdialog" aria-label="Preview" style="position: absolute; right: 40px; top: 170px; width: 300px; z-index: 3">
+    <div class="of-title"><span>Ur Record Preview</span><span style="background: #C0C0C0; color: #000; padding: 0 5px; border: 2px outset #FFF; font-size: 12px">x</span></div>
+    <div style="padding: 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; font-family: 'Comic Neue', cursive; font-size: 16px">
+      <img class="of-spin" src="images/ai-oil.jpg" alt="Spinning preview of your record" style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 6px solid #000">
+      <span>Lookin' GOOD!!! This is what ur record will look like :-D</span>
+      <button type="button" class="of-btn" style="font-size: 15px">OK</button>
+    </div>
+  </div>
+</div>
+<div style="position:fixed;left:12px;bottom:12px;z-index:9999;display:flex;gap:6px;font:600 13px/1 system-ui,sans-serif"><a href="../index.html#directions" style="background:#141110;color:#F1EAE0;padding:10px 14px;border-radius:99px;text-decoration:none">← Back to proposal</a><span style="background:#C4122F;color:#fff;padding:10px 14px;border-radius:99px">Direction G</span></div></body></html>

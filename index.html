@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="MWT Labs' build proposal for Vinyly: scope, architecture, delivery plan, risks and seven animated design directions.">
+<meta property="og:title" content="Vinyly Build Proposal · MWT Labs">
+<meta property="og:description" content="Your music memories, on vinyl. Scope, delivery plan and seven design directions.">
+<meta property="og:image" content="media/a-home-poster.jpg">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23141110'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23C4122F'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%23F5F0E8'/%3E%3C/svg%3E">
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img,video{max-width:100%}[hidden]{display:none!important}html{scroll-behavior:smooth}@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}</style>
+<title>Vinyly Build Proposal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Pacifico&display=swap">
+<style>
+/* Layout: a record in two sides. Side A = the proposal as a numbered tracklist; Side B = seven design directions as a crate you flip through. */
+:root{
+  --paper:#F5F0E8; --sleeve:#ECE4D8; --ink:#17130F; --muted:#5F564C; --rule:#D9CEBF;
+  --accent:#C4122F; --accent-ink:#FFFFFF; --vinyl:#141110; --groove:#2A2421; --ok:#2E6B3B;
+  --display:'Newsreader',Georgia,'Times New Roman',serif;
+  --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#141110; --sleeve:#1E1A17; --ink:#F1EAE0; --muted:#B4A898; --rule:#3A332D;
+  --accent:#FF5367; --accent-ink:#1A0508; --vinyl:#050404; --groove:#2E2723; --ok:#7CC48A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#141110; --sleeve:#1E1A17; --ink:#F1EAE0; --muted:#B4A898; --rule:#3A332D;
+  --accent:#FF5367; --accent-ink:#1A0508; --vinyl:#050404; --groove:#2E2723; --ok:#7CC48A; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;letter-spacing:-0.015em}
+h2{font-size:clamp(34px,5vw,56px);line-height:1.04}
+h3{font-size:24px;line-height:1.2}
+p{margin:0;max-width:66ch}
+.mono{font-family:var(--mono);font-size:13px;letter-spacing:0.04em;text-transform:uppercase}
+.muted{color:var(--muted)}
+
+/* Hero */
+.hero{padding-block:48px 72px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,0.85fr);gap:48px;align-items:center}
+.byline{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:16px;margin-bottom:56px}
+.hero h1{font-size:clamp(46px,7.2vw,96px);line-height:0.98}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.lede{font-size:21px;line-height:1.5;color:var(--muted);margin-top:24px;max-width:34ch}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:40px;border-top:1px solid var(--ink)}
+.fact{padding:16px 16px 0 0;display:flex;flex-direction:column;gap:4px;min-width:0}
+.fact+.fact{padding-left:16px;border-left:1px solid var(--rule)}
+.fact b{font-family:var(--display);font-weight:400;font-size:clamp(24px,3vw,34px);line-height:1.1}
+.disc-wrap{position:relative;aspect-ratio:1;max-width:100%}
+.disc{position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(circle,var(--vinyl) 0 2px,var(--groove) 2px 3px);box-shadow:0 30px 70px rgba(0,0,0,.28);animation:spin 9s linear infinite}
+.disc .label{position:absolute;inset:31%;border-radius:50%;background:var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#FFFFFF;padding:10px}
+.disc .label .lt{font-family:var(--body);font-weight:600;font-size:clamp(10px,1vw,13px);letter-spacing:.16em;text-transform:uppercase;line-height:1}
+.disc .label .lgap{height:clamp(30px,3.4vw,44px);flex:none}
+.disc .label .lb{font-family:'Pacifico','Brush Script MT',cursive;font-size:clamp(26px,3vw,40px);line-height:1;margin-top:-4px}
+.disc .hole{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--paper)}
+.disc .sheen{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 20deg,transparent 0 12%,rgba(255,255,255,.10) 16%,transparent 22% 62%,rgba(255,255,255,.08) 66%,transparent 72%)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Tracklist nav */
+.tracklist{border-block:1px solid var(--ink);padding-block:22px}
+.tracklist-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 48px}
+.side-title{font-family:var(--display);font-size:24px;margin-bottom:6px}
+.tracklist ol{list-style:none;margin:0;padding:0}
+.tracklist li a{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px dotted var(--rule);color:var(--ink);text-decoration:none}
+.tracklist li a:hover span:nth-child(2){color:var(--accent)}
+.tracklist .no{font-family:var(--mono);font-size:13px;color:var(--accent)}
+
+/* Sections */
+section.track{padding-block:88px 8px;scroll-margin-top:16px}
+.track-head{display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;margin-bottom:36px}
+.track-head .no{font-family:var(--mono);font-size:14px;color:var(--accent);padding-top:14px}
+.track-head p{margin-top:16px;font-size:19px;color:var(--muted)}
+.body{margin-left:144px;display:flex;flex-direction:column;gap:28px}
+
+.decisions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.decision{border-top:3px solid var(--accent);padding-top:16px;display:flex;flex-direction:column;gap:8px}
+.decision p{color:var(--muted);font-size:16px}
+
+.phase-table,.data-table{width:100%;min-width:640px;border-collapse:collapse;font-size:15.5px}
+.table-box{overflow-x:auto;border-top:1px solid var(--ink)}
+.data-table th{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:left;font-weight:400;padding:12px 14px 10px 0;border-bottom:1px solid var(--ink);white-space:nowrap}
+.data-table td{padding:12px 14px 12px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+.data-table td:first-child{font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap}
+.pill{display:inline-block;font-family:var(--mono);font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--ink);white-space:nowrap}
+.pill.p2{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+
+.journey{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.journey li{padding:16px 16px 18px 0;border-bottom:1px solid var(--rule);display:flex;flex-direction:column;gap:6px;min-width:0}
+.journey li:not(:nth-child(4n+1)){padding-left:16px;border-left:1px solid var(--rule)}
+.journey .no{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.journey b{font-weight:600}
+.journey span:last-child{color:var(--muted);font-size:15px}
+.callout{background:var(--sleeve);border-radius:4px;padding:24px 28px;font-family:var(--display);font-size:clamp(20px,2.4vw,26px);line-height:1.35}
+
+.gaps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.gap{border:1px solid var(--rule);padding:18px 20px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.gap .mono{color:var(--ok)}
+.gap p{color:var(--muted);font-size:15.5px}
+
+/* Architecture diagram */
+.arch{display:flex;flex-direction:column;gap:10px}
+.tier{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:stretch}
+.tier-label{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding-top:12px}
+.boxes{display:grid;gap:10px}
+.box{border:1px solid var(--ink);padding:12px 14px;font-size:15px;line-height:1.4;min-width:0;background:var(--paper)}
+.box b{display:block;font-weight:600}
+.box span{color:var(--muted)}
+.tier.core .boxes{background:var(--vinyl);padding:12px;border-radius:4px}
+.tier.core .box{background:transparent;border-color:#4A403A;color:#F1EAE0}
+.tier.core .box span{color:#C9BEB0}
+.tier.core .tier-label{color:var(--accent)}
+.arrow{margin-left:166px;height:18px;width:2px;background:var(--muted);position:relative}
+.arrow::after{content:"";position:absolute;left:-5px;bottom:-2px;border:6px solid transparent;border-top-color:var(--muted)}
+.twin{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center}
+
+/* Timeline */
+.timeline{overflow-x:auto;border-top:1px solid var(--ink)}
+.tl{min-width:760px;display:grid;grid-template-columns:200px repeat(16,minmax(0,1fr));font-size:14px;position:relative}
+.tl .mh{font-family:var(--mono);font-size:12px;color:var(--muted);padding:10px 0 8px 6px;border-left:1px solid var(--rule)}
+.tl .rl{padding:9px 10px 9px 0;border-top:1px solid var(--rule);white-space:nowrap}
+.tl .cell{border-top:1px solid var(--rule);position:relative;padding-block:9px}
+.bar{height:16px;border-radius:99px;background:color-mix(in srgb,var(--ink) 16%,transparent);border:1.5px solid var(--ink);margin-top:3px}
+.bar.hot{background:var(--accent);border-color:var(--accent)}
+.bar.soft{background:transparent;border-style:dashed;border-color:var(--muted)}
+.diamond{width:14px;height:14px;transform:rotate(45deg);background:var(--ink);margin:4px 0 0 2px}
+.diamond.hot{background:var(--accent)}
+.milestones{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.ms{border-top:3px solid var(--ink);padding-top:12px;display:flex;flex-direction:column;gap:6px}
+.ms.hot{border-color:var(--accent)}
+.ms .mono{color:var(--muted)}
+.ms p{font-size:15px;color:var(--muted)}
+.pay{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--ink)}
+.pay div{flex:1 1 160px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.pay div+div{border-left:1px solid var(--ink)}
+.pay b{font-family:var(--display);font-weight:400;font-size:34px;line-height:1}
+
+.lists{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.lists ul,.lists ol{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:8px;color:var(--muted);font-size:16px}
+
+/* Side B: design directions */
+.sideb{background:var(--vinyl);color:#F1EAE0;margin-top:96px;padding-block:88px 96px}
+.sideb .track-head .no{color:#FF6A7C}
+.sideb .track-head p{color:#C9BEB0}
+.crate{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:28px}
+.crate button{flex:none;display:flex;align-items:center;gap:10px;background:transparent;color:#F1EAE0;border:1px solid #4A403A;border-radius:99px;padding:8px 16px 8px 8px;font:inherit;font-size:15px;cursor:pointer;min-height:44px}
+.crate button .l{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;background:#2E2723}
+.crate button[aria-selected="true"]{background:#F1EAE0;color:#141110;border-color:#F1EAE0}
+.crate button[aria-selected="true"] .l{background:#C4122F;color:#FFFFFF}
+.dir-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:24px}
+.dir-head h3{font-size:clamp(34px,4.6vw,52px);line-height:1}
+.dir-head p{color:#C9BEB0;margin-top:10px}
+.dir-nav{display:flex;gap:8px}
+.dir-nav button{width:44px;height:44px;border-radius:50%;border:1px solid #4A403A;background:transparent;color:#F1EAE0;font-size:18px;cursor:pointer}
+.screens{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;align-items:start}
+.screen{display:flex;flex-direction:column;gap:10px;min-width:0}
+.frame{border-radius:10px;overflow:hidden;background:#000;box-shadow:0 0 0 1px #3A332D,0 24px 60px rgba(0,0,0,.45)}
+.frame .chrome{display:flex;gap:6px;align-items:center;padding:9px 12px;background:#24201C}
+.frame .chrome i{width:9px;height:9px;border-radius:50%;background:#4A403A;display:block}
+.frame .chrome span{margin-left:8px;font-family:var(--mono);font-size:11px;color:#9C8F80;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.frame video,.frame img{display:block;width:100%;height:auto;max-width:100%}
+.screen .cap{font-size:14.5px;color:#C9BEB0}
+.screen .meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px}
+.live{color:#FF6A7C;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap;padding-block:6px}
+.live:hover{text-decoration:underline}
+.moments{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
+.moments div{border-top:1px solid #4A403A;padding-top:12px;font-size:15.5px;color:#D8CDBF}
+.moments b{display:block;color:#F1EAE0;font-weight:600;margin-bottom:4px}
+details.full{margin-top:20px;border:1px solid #4A403A;border-radius:8px}
+details.full summary{cursor:pointer;padding:14px 18px;font-weight:600;min-height:44px;list-style-position:inside}
+.full-scroll{max-height:640px;overflow-y:auto;border-top:1px solid #4A403A}
+.full-scroll img{display:block;width:100%;height:auto}
+.note{margin-top:28px;font-size:15px;color:#C9BEB0;max-width:72ch}
+
+/* Next steps */
+.next{padding-block:88px 96px}
+.steps{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.steps li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;padding:18px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.steps li span:first-child{font-family:var(--display);font-size:24px;color:var(--accent)}
+.contact{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:36px}
+.contact code{font-family:var(--mono);font-size:16px;background:var(--sleeve);padding:12px 16px;border-radius:4px;user-select:all}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:12px 20px;border-radius:99px;border:1px solid var(--ink);background:transparent;color:var(--ink);font:inherit;font-weight:600;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+footer{border-top:1px solid var(--rule);padding-block:28px 40px;color:var(--muted);font-size:14px}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .disc-wrap{max-width:360px;margin-inline:auto;width:100%}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fact:nth-child(3){padding-left:0;border-left:none}
+  .tracklist-grid,.decisions,.gaps,.lists,.twin,.screens{grid-template-columns:1fr}
+  .track-head{grid-template-columns:1fr;gap:6px}
+  .track-head .no{padding-top:0}
+  .body{margin-left:0}
+  .journey{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .journey li:not(:nth-child(4n+1)){padding-left:0;border-left:none}
+  .journey li:nth-child(2n){padding-left:16px;border-left:1px solid var(--rule)}
+  .milestones,.moments{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tier{grid-template-columns:1fr;gap:6px}
+  .tier-label{padding-top:0}
+  .arrow{margin-left:20px}
+  .boxes{grid-template-columns:1fr!important}
+  .dir-head{grid-template-columns:1fr}
+  .steps li{grid-template-columns:1fr;gap:4px}
+}
+@media (max-width:520px){
+  .milestones,.moments,.journey{grid-template-columns:1fr}
+  .journey li:nth-child(2n){padding-left:0;border-left:none}
+}
+@media (prefers-reduced-motion: reduce){.disc{animation:none}}
+</style>
+
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="byline mono"><span><b>MWT Labs</b> · tender response</span><span>Prepared for the Vinyly founders · November 2026</span></div>
+    <div class="hero-grid">
+      <div>
+        <p class="mono" style="color:var(--accent)">Software build proposal</p>
+        <h1 style="margin-top:14px">Your music memories, <em>on vinyl.</em></h1>
+        <p class="lede">How MWT Labs will build the platform that turns a playlist and a photo into a record someone can hold, gift and keep.</p>
+        <div class="facts">
+          <div class="fact"><span class="mono muted">MVP live</span><b>29 Jan 2027</b></div>
+          <div class="fact"><span class="mono muted">Full scope</span><b>End Feb 2027</b></div>
+          <div class="fact"><span class="mono muted">Scope covered</span><b>17 of 17</b></div>
+          <div class="fact"><span class="mono muted">Design directions</span><b>7, live</b></div>
+        </div>
+      </div>
+      <div class="disc-wrap" aria-hidden="true">
+        <div class="disc"><div class="sheen"></div><div class="label"><span class="lt">MWT Labs ×</span><span class="lgap"></span><span class="lb">Vinyly</span></div><div class="hole"></div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tracklist" aria-label="Contents">
+  <div class="wrap tracklist-grid">
+    <div>
+      <div class="side-title">Side A · The proposal</div>
+      <ol>
+        <li><a href="#a1"><span class="no">A1</span><span>Summary</span><span class="mono muted">3 decisions</span></a></li>
+        <li><a href="#a2"><span class="no">A2</span><span>Our understanding</span><span class="mono muted">8 steps</span></a></li>
+        <li><a href="#a3"><span class="no">A3</span><span>Scope coverage</span><span class="mono muted">17 + 4</span></a></li>
+        <li><a href="#a4"><span class="no">A4</span><span>Architecture</span><span class="mono muted">3 tiers</span></a></li>
+        <li><a href="#a5"><span class="no">A5</span><span>Delivery plan</span><span class="mono muted">Nov → Mar</span></a></li>
+        <li><a href="#a6"><span class="no">A6</span><span>Risks &amp; open questions</span><span class="mono muted">5 risks</span></a></li>
+      </ol>
+    </div>
+    <div>
+      <div class="side-title">Side B · Design directions</div>
+      <ol>
+        <li><a href="#directions" data-go="0"><span class="no">B1</span><span>Living Room</span><span class="mono muted">warm, editorial</span></a></li>
+        <li><a href="#directions" data-go="1"><span class="no">B2</span><span>Gift Studio</span><span class="mono muted">mobile-led</span></a></li>
+        <li><a href="#directions" data-go="2"><span class="no">B3</span><span>Groove Lab</span><span class="mono muted">everything spins</span></a></li>
+        <li><a href="#directions" data-go="3"><span class="no">B4</span><span>Sleeve Slide</span><span class="mono muted">riso zine</span></a></li>
+        <li><a href="#directions" data-go="4"><span class="no">B5</span><span>Vinyly OS</span><span class="mono muted">retro desktop</span></a></li>
+        <li><a href="#directions" data-go="5"><span class="no">B6</span><span>Jukebox Diner</span><span class="mono muted">50s neon</span></a></li>
+        <li><a href="#directions" data-go="6"><span class="no">B7</span><span>Vinyly's Home Page</span><span class="mono muted">1998 web</span></a></li>
+      </ol>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="track" id="a1">
+    <div class="wrap">
+      <div class="track-head"><span class="no">A1 · Summary</span>
+        <div><h2>A launch-ready MVP on 29 January, the full 17-item scope by the end of February.</h2>
+        <p>That leaves almost four months of runway before Father's Day, Vinyly's biggest gifting moment. The plan rests on three decisions.</p></div></div>
+      <div class="body">
+        <div class="decisions">
+          <div class="decision"><h3>Buy the commodity, build the magic</h3><p>Shopify runs the catalogue, checkout, payments, promo codes, accounts and refunds. The build effort goes into what makes Vinyly different: the configurator, live preview, music pipeline and Vinyly AI.</p></div>
+          <div class="decision"><h3>Production-ready from day one</h3><p>Every paid order produces print-ready artwork and mastered audio, handed to the pressing partner from an ops console. A beautiful site that can't feed the factory is not a product.</p></div>
+          <div class="decision"><h3>De-risk the hard parts early</h3><p>Spotify's API rules, music licensing and runaway AI costs could each sink the launch if left late. Each has a plan below, starting in week one.</p></div>
+        </div>
+        <div class="table-box"><table class="data-table">
+          <thead><tr><th>Phase</th><th>What you get</th><th>Live by</th></tr></thead>
+          <tbody>
+            <tr><td>1 · Launch MVP</td><td>Site, configurator, live preview, uploads, audio ID, commerce, ops console</td><td><b>29 Jan 2027</b></td></tr>
+            <tr><td>2 · Music &amp; AI</td><td>Spotify and Apple Music import, Vinyly AI image styling</td><td><b>End of Feb 2027</b></td></tr>
+          </tbody></table></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="track" id="a2">
+    <div class="wrap">
+      <div class="track-head"><span class="no">A2 · Understanding</span>
+        <div><h2>Your customer segment, understood.</h2>
+        <p>They arrive on a phone, close to an occasion, and need to finish in one sitting. Vinyly should feel as easy as Moonpig and land with the weight of a real record. This is the journey MWT Labs will build, taken from your screens.</p></div></div>
+      <div class="body">
+        <ol class="journey">
+          <li><span class="no">01</span><b>Pick an occasion</b><span>Birthday, Valentine's, Christmas, Father's Day, anniversary, newborn</span></li>
+          <li><span class="no">02</span><b>Select your Vinyly</b><span>Centre Print, Full Print or Heart Shape</span></li>
+          <li><span class="no">03</span><b>Customise disc and cover</b><span>Live Cover / Vinyl preview</span></li>
+          <li><span class="no">04</span><b>Style it with Vinyly AI</b><span>Original, 70's Cover, Aimé, Oil Painting</span></li>
+          <li><span class="no">05</span><b>Add the music</b><span>Upload MP3/WAV or import a playlist</span></li>
+          <li><span class="no">06</span><b>Cart and upsell</b><span>Player, rack, frame, display, Starter Bundle</span></li>
+          <li><span class="no">07</span><b>Checkout</b><span>Optionally as a gift, with a message</span></li>
+          <li><span class="no">08</span><b>Production and delivery</b><span>A status email at every stage</span></li>
+        </ol>
+        <div class="callout">Success: a mobile buyer goes from homepage to paid order in under 10 minutes, and every paid order reaches the pressing plant with no manual file work.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="track" id="a3">
+    <div class="wrap">
+      <div class="track-head"><span class="no">A3 · Scope</span>
+        <div><h2>All 17 items in your build scope, plus four gaps we found.</h2>
+        <p>Every item in the Developer Build Scope is covered. <span class="pill">P1</span> ships with the MVP; <span class="pill p2">P2</span> ships with Music &amp; AI.</p></div></div>
+      <div class="body">
+        <div class="table-box"><table class="data-table">
+          <thead><tr><th>#</th><th>Requirement</th><th>What MWT Labs delivers</th><th>Phase</th></tr></thead>
+          <tbody>
+            <tr><td>01</td><td><b>Marketing pages &amp; SEO</b></td><td>Home, How it works, Products, FAQ, Contact, About, a landing page per occasion; headless CMS, schema markup, sitemap</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>02</td><td><b>Configurator</b></td><td>Centre Print, Full Print, Heart Shape; disc image, covers, sleeve colour, text; print-safe checks for resolution, crop and bleed</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>03</td><td><b>Live preview</b></td><td>Real-time disc and sleeve mock-up; the same render engine produces the print files</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>04</td><td><b>Spotify &amp; Apple Music</b></td><td>Playlist import into the tracklist; Apple Music first, Spotify subject to its access rules</td><td><span class="pill p2">P2</span></td></tr>
+            <tr><td>05</td><td><b>MP3/WAV upload pipeline</b></td><td>Resumable uploads, transcoding, loudness normalising, running-time check per side, waveform preview</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>06</td><td><b>Audio ID &amp; licensing metadata</b></td><td>Fingerprinting every track; ISRC and rights-holder data stored per order; flags for ops review</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>07</td><td><b>Commerce</b></td><td>Headless Shopify: catalogue, Starter Bundle, cross-sell, cart, checkout with cards and wallets</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>08</td><td><b>Customer accounts</b></td><td>Order history, saved draft designs, reorder</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>09</td><td><b>Admin panel</b></td><td>Ops console: production queue, artwork and audio packs, status changes, pressing-partner handoff</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>10</td><td><b>Order &amp; status emails</b></td><td>Confirmation, design approved, in production, shipped, delivered; branded templates</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>11</td><td><b>Design &amp; UX</b></td><td>Design system from your brand, mobile-first flows, clickable prototype for founder approval</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>12</td><td><b>PM, QA, deployments</b></td><td>Two-week sprints, a demo or screencast every sprint, automated tests, staging, release on demand; accounts and DevOps fully managed</td><td><span class="pill">P1</span> <span class="pill p2">P2</span></td></tr>
+            <tr><td>13</td><td><b>Gift mode</b></td><td>Recipient address, gift message card, price-free packing slip</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>14</td><td><b>Discount &amp; promo codes</b></td><td>Codes, automatic bundle discounts, occasion campaigns</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>15</td><td><b>Support tools</b></td><td>Order search, design edit until production lock, cancel, full and partial refund</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>16</td><td><b>Reviews &amp; testimonials</b></td><td>Verified reviews widget and a curated "Made by you" gallery, with customer consent</td><td><span class="pill">P1</span></td></tr>
+            <tr><td>17</td><td><b>AI image styling</b></td><td>Style presets on background jobs, progress UI, print-resolution upscale, per-order and monthly cost caps</td><td><span class="pill p2">P2</span></td></tr>
+          </tbody></table></div>
+        <div class="gaps">
+          <div class="gap"><span class="mono">Included</span><h3>Pressing-partner integration</h3><p>Not in the scope sheet but essential: a standard handoff (artwork and audio pack, order manifest), adapted to your partner's format.</p></div>
+          <div class="gap"><span class="mono">Included</span><h3>Print-file generation</h3><p>Implied by the configurator; made explicit, with print-ready PDF or TIFF to your partner's spec.</p></div>
+          <div class="gap"><span class="mono">Included</span><h3>Legal &amp; compliance basics</h3><p>Cookie consent, privacy policy hooks, GDPR data export and deletion, WCAG 2.2 AA accessibility.</p></div>
+          <div class="gap"><span class="mono" style="color:var(--accent)">Optional add-on</span><h3>Vinyly Song Creator</h3><p>Shown in your deck, not in the scope sheet. Available as an optional add-on once the core launch is live.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="track" id="a4">
+    <div class="wrap">
+      <div class="track-head"><span class="no">A4 · Architecture</span>
+        <div><h2>A thin custom core between proven services.</h2>
+        <p>A TypeScript stack on managed services. The Studio API owns everything about the record; Shopify owns everything about the money; a paid-order webhook joins the two.</p></div></div>
+      <div class="body">
+        <div class="arch" role="img" aria-label="Architecture: people use the storefront and ops console, which call the Vinyly Studio API and its background workers, which use bought services such as Shopify, storage, audio ID, AI models and the pressing partner.">
+          <div class="tier"><span class="tier-label">People</span><div class="boxes" style="grid-template-columns:1fr 1fr"><div class="box"><b>Gift buyer</b><span>Phone first, also desktop</span></div><div class="box"><b>Vinyly ops &amp; support</b><span>Production, refunds, edits</span></div></div></div>
+          <div class="arrow"></div>
+          <div class="tier"><span class="tier-label">Experience</span><div class="boxes" style="grid-template-columns:1.4fr 1fr"><div class="box"><b>Storefront · Next.js on Vercel</b><span>Marketing pages, configurator, live preview, accounts, cart</span></div><div class="box"><b>Ops console · Next.js</b><span>Production queue, packs, support tools</span></div></div></div>
+          <div class="arrow"></div>
+          <div class="tier core"><span class="tier-label">Vinyly core · we build</span><div class="boxes" style="grid-template-columns:repeat(4,minmax(0,1fr))"><div class="box" style="grid-column:1/-1"><b>Studio API · Node.js + PostgreSQL</b><span>Designs, tracklists, production state, licensing records, cost caps</span></div><div class="box"><b>Audio worker</b><span>Transcode, normalise, fingerprint</span></div><div class="box"><b>Image worker</b><span>AI style, upscale, capped</span></div><div class="box"><b>Print renderer</b><span>PDF / TIFF to spec</span></div><div class="box"><b>Handoff</b><span>Packs + manifest to plant</span></div></div></div>
+          <div class="arrow"></div>
+          <div class="tier"><span class="tier-label">Services · Vinyly owns</span><div class="boxes" style="grid-template-columns:repeat(4,minmax(0,1fr))"><div class="box"><b>Shopify</b><span>Checkout, payments, tax, refunds</span></div><div class="box"><b>Sanity CMS</b><span>Pages, FAQ, occasions</span></div><div class="box"><b>Storage + CDN</b><span>Photos, WAVs, print files</span></div><div class="box"><b>Redis queue</b><span>Background jobs</span></div><div class="box"><b>Audio ID</b><span>Fingerprint, ISRC</span></div><div class="box"><b>AI image models</b><span>Behind a swappable adapter</span></div><div class="box"><b>Apple Music · Spotify</b><span>Playlist metadata only</span></div><div class="box"><b>Pressing partner</b><span>Secure file delivery</span></div></div></div>
+        </div>
+        <div class="twin">
+          <div class="callout">One design file, two renderers. The browser draws the live preview; a server worker re-renders the same design at print resolution when the order is paid. The preview cannot drift from what gets pressed.</div>
+          <div class="lists" style="grid-template-columns:1fr">
+            <div><h3>Built to run</h3><ul><li>Uploads go straight to storage in resumable chunks, so a 200 MB WAV survives a flaky mobile connection.</li><li>AI styling is queued, cached and capped at three levels, with a monthly ceiling that pauses AI rather than overspend.</li><li>Error tracking, uptime alerts and cost dashboards from launch day.</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="track" id="a5">
+    <div class="wrap">
+      <div class="track-head"><span class="no">A5 · Delivery</span>
+        <div><h2>Kick-off on 24 November, MVP live 29 January, full scope by the end of February.</h2>
+        <p>Stage 1 is design: the founders choose a direction and approve it, targeted for 11 December, before feature build starts. Account and environment set-up runs alongside, and the Christmas break is kept to 24 December to 1 January.</p></div></div>
+      <div class="body">
+        <div class="timeline">
+          <div class="tl" role="img" aria-label="Timeline from November 2026 to March 2027: design 24 Nov to 10 Dec, approval 11 Dec, three build sprints 14 Dec to 22 Jan, testing 25 to 28 Jan, MVP launch 29 Jan, Phase 2 from 1 to 26 Feb, hypercare 1 to 12 Mar.">
+            <span></span><span class="mh">23 Nov</span><span class="mh">30 Nov</span><span class="mh">7 Dec</span><span class="mh">14 Dec</span><span class="mh">21 Dec</span><span class="mh">28 Dec</span><span class="mh">4 Jan</span><span class="mh">11 Jan</span><span class="mh">18 Jan</span><span class="mh">25 Jan</span><span class="mh">1 Feb</span><span class="mh">8 Feb</span><span class="mh">15 Feb</span><span class="mh">22 Feb</span><span class="mh">1 Mar</span><span class="mh">8 Mar</span>
+            <span class="rl">Stage 1 · design options</span><span class="cell" style="grid-column:2/span 3"><div class="bar"></div></span><span class="cell" style="grid-column:5/span 13"></span>
+            <span class="rl">Founders approve design</span><span class="cell" style="grid-column:2/span 2"></span><span class="cell" style="grid-column:4/span 1;text-align:right"><div class="diamond" style="margin-left:auto;margin-right:4px"></div></span><span class="cell" style="grid-column:5/span 13"></span>
+            <span class="rl">Phase 1 build · 3 sprints</span><span class="cell" style="grid-column:2/span 3"></span><span class="cell" style="grid-column:5/span 6"><div class="bar"></div></span><span class="cell" style="grid-column:11/span 7"></span>
+            <span class="rl">Christmas break</span><span class="cell" style="grid-column:2/span 4"></span><span class="cell" style="grid-column:6/span 2"><div class="bar soft"></div></span><span class="cell" style="grid-column:8/span 10"></span>
+            <span class="rl">UAT &amp; test orders</span><span class="cell" style="grid-column:2/span 9"></span><span class="cell" style="grid-column:11/span 1"><div class="bar"></div></span><span class="cell" style="grid-column:12/span 6"></span>
+            <span class="rl"><b>MVP launch · 29 Jan</b></span><span class="cell" style="grid-column:2/span 9"></span><span class="cell" style="grid-column:11/span 1;text-align:right"><div class="diamond hot" style="margin-left:auto;margin-right:2px"></div></span><span class="cell" style="grid-column:12/span 6"></span>
+            <span class="rl">Phase 2 · music &amp; AI</span><span class="cell" style="grid-column:2/span 10"></span><span class="cell" style="grid-column:12/span 4"><div class="bar hot"></div></span><span class="cell" style="grid-column:16/span 2"></span>
+            <span class="rl">Hypercare</span><span class="cell" style="grid-column:2/span 14"></span><span class="cell" style="grid-column:16/span 2"><div class="bar soft"></div></span>
+          </div>
+        </div>
+        <div class="milestones">
+          <div class="ms"><span class="mono">11 Dec</span><h3>Design approval</h3><p>Founders choose from the design options as a clickable mobile prototype; pressing-partner spec and backlog agreed.</p></div>
+          <div class="ms"><span class="mono">Every sprint</span><h3>Working software</h3><p>Features on staging, shown in a recorded screencast or a live demo.</p></div>
+          <div class="ms hot"><span class="mono">29 Jan</span><h3>MVP launch</h3><p>Taking real orders. The gate: two test orders placed end-to-end and accepted by the pressing partner.</p></div>
+          <div class="ms"><span class="mono">End of Feb</span><h3>Full scope</h3><p>Playlist import and Vinyly AI live, then two weeks of hypercare.</p></div>
+        </div>
+        <div>
+          <p class="mono muted" style="margin-bottom:10px">Payment structure</p>
+          <div class="pay">
+            <div><span class="mono muted">1 · Retainer · before kick-off</span><b>30%</b></div>
+            <div><span class="mono muted">2 · First week of January</span><b>35%</b></div>
+            <div><span class="mono muted">3 · First week of February</span><b>35%</b></div>
+          </div>
+          <p class="muted" style="margin-top:10px;font-size:15px">A retainer secures the team before work starts, followed by payments in the first week of each month. Percentages are of the agreed project fee, confirmed separately.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="track" id="a6">
+    <div class="wrap">
+      <div class="track-head"><span class="no">A6 · Risks</span>
+        <div><h2>The two biggest risks are not code: Spotify access and music licensing.</h2>
+        <p>MWT Labs would rather name them now than discover them in month four.</p></div></div>
+      <div class="body">
+        <div class="table-box"><table class="data-table">
+          <thead><tr><th>Risk</th><th>Impact</th><th>How MWT Labs handles it</th></tr></thead>
+          <tbody>
+            <tr><td>Spotify API access</td><td>"Create a vinyl with any playlist" may not work for Spotify users at launch: since February 2026, apps in Spotify's Development Mode are limited to five users, and extended access is aimed at established services.</td><td>Launch with Apple Music import, track search and uploads. Build Spotify behind the same tracklist model and switch it on when approved. Apply for access in week one.</td></tr>
+            <tr><td>Music licensing</td><td>Pressing commercial recordings needs rights from the publisher and the recording's owner. Streaming services provide no audio for pressing.</td><td>Audio ID flags every commercial track; ops can hold, approve or refuse. Buyers confirm rights to their uploads. Vinyly takes legal advice on its licensing model before launch.</td></tr>
+            <tr><td>AI cost overrun</td><td>Margin erosion from heavy users</td><td>Caching, three-level caps, a monthly ceiling and a swappable provider adapter.</td></tr>
+            <tr><td>Pressing spec unknown</td><td>Rework of print and audio output</td><td>Get the partner's spec in Stage 1; test-press records before launch.</td></tr>
+            <tr><td>Occasion peaks</td><td>Traffic spikes around Valentine's, Mother's Day, Father's Day and Christmas</td><td>Shopify checkout and a serverless front end scale on demand; load test before the first peak.</td></tr>
+          </tbody></table></div>
+        <div class="lists">
+          <div><h3>Assumptions</h3><ul>
+            <li>Vinyly supplies brand assets, copy and product photography.</li>
+            <li>Vinyly provides one company email; MWT Labs sets up and manages all accounts, environments and DevOps from there.</li>
+            <li>One pressing partner at launch, with file delivery rather than a live API.</li>
+            <li>English and GBP at launch; UK and EU shipping handled by Shopify.</li>
+            <li>Third-party fees (Shopify, hosting, AI, audio ID) are paid by Vinyly.</li></ul></div>
+          <div><h3>Questions for Stage 1</h3><ol>
+            <li>Who is your pressing partner, and what are their artwork and audio specs, minimum runs and lead times?</li>
+            <li>What is your licensing model for commercial tracks: licence per order, own recordings only, or a hybrid?</li>
+            <li>Should Heart Shape and Full Print share one price, or vary by format and side length?</li>
+            <li>Is Vinyly Song Creator needed at launch or later?</li></ol></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sideb" id="directions">
+    <div class="wrap">
+      <div class="track-head"><span class="no">Side B · Design</span>
+        <div><h2>Seven directions to react to before kick-off.</h2>
+        <p>Some visual directions for you to consider, discuss, reiterate where and if needed, and finally approve before build phase.</p></div></div>
+
+      <div class="crate" role="tablist" aria-label="Design directions" id="crate"></div>
+
+      <div id="panel" role="tabpanel" aria-live="polite">
+        <div class="dir-head">
+          <div><p class="mono" id="d-no" style="color:#FF6A7C"></p><h3 id="d-name"></h3><p id="d-feel"></p></div>
+          <div class="dir-nav"><button type="button" id="prev" aria-label="Previous direction">←</button><button type="button" id="next" aria-label="Next direction">→</button></div>
+        </div>
+        <div class="screens">
+          <div class="screen"><div class="frame"><div class="chrome"><i></i><i></i><i></i><span id="d-url1"></span></div><video id="v1" muted loop playsinline preload="metadata"></video></div><div class="meta"><span class="cap" id="cap1">Homepage</span><a class="live" id="l1" href="#">Open the live homepage →</a></div></div>
+          <div class="screen"><div class="frame"><div class="chrome"><i></i><i></i><i></i><span id="d-url2"></span></div><video id="v2" muted loop playsinline preload="metadata"></video></div><div class="meta"><span class="cap" id="cap2"></span><a class="live" id="l2" href="#">Open the live screen →</a></div></div>
+        </div>
+        <div class="moments" id="moments"></div>
+        <details class="full" id="full"><summary>See the full homepage</summary><div class="full-scroll"><img id="fullimg" alt="" loading="lazy"></div></details>
+      </div>
+      <p class="note">Recordings show each direction at desktop size with animation running; "Open the live page" opens the real page to scroll and click through. In the build, every animation respects visitors' reduced-motion settings and every direction is designed mobile-first. Prices marked [PRICE] are placeholders until Vinyly confirms format pricing.</p>
+    </div>
+  </section>
+
+  <section class="next">
+    <div class="wrap">
+      <div class="track-head"><span class="no">Run-out · Next steps</span>
+        <div><h2>Four steps from here to kick-off.</h2></div></div>
+      <div class="body">
+        <ol class="steps">
+          <li><span>This week</span><span>A 60-minute call to walk through the proposal, the seven directions and your questions.</span></li>
+          <li><span>By 18 Nov</span><span>Introduction to your pressing partner to confirm artwork and audio file formats.</span></li>
+          <li><span>23 Nov</span><span>Agreement signed and retainer paid.</span></li>
+          <li><span>24 Nov</span><span>Kick-off workshop. Stage 1 design starts; the Spotify access application is filed the same week.</span></li>
+        </ol>
+        <div class="contact">
+          <span>Gisel, MWT Labs</span>
+          <code id="email">gisel@mwtlabs.com</code>
+          <button type="button" class="btn primary" id="copy">Copy email</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">MWT Labs · Software build proposal for Vinyly · November 2026</div></footer>
+
+<script>
+const D=[
+ {k:'a',name:'Living Room',feel:'Warm and editorial, closest to your deck: cream, Vinyly red, a serif display and big rounded photography.',url:'vinyly.com',cap2:'Configurator: live cover and disc preview, with Vinyly AI styles and a print-quality check',m:[['Occasion search','"I want a vinyl for…" sits right in the hero, with one-tap occasion chips.'],['Made by you','Real customer discs as the proof, with names and occasions.'],['Restyle counter','"2 of 12 restyles used" makes the AI cost cap feel like a feature.']]},
+ {k:'b',name:'Gift Studio',feel:'Playful and occasion-first, like a modern card shop: pastel tiles, a friendly grotesque, and a flow built for the phone.',url:'vinyly.com',cap2:'Mobile flow: style it, add the music, then send it as a gift',m:[['Who\'s it for?','Eight colourful occasion tiles, each with a disc peeking in.'],['Gift by default','Recipient address, gift note and "hide prices" in one step.'],['Three-step phone flow','Progress bar, big thumb-friendly buttons, express checkout.']]},
+ {k:'c',name:'Groove Lab',feel:'Acid-green brutalism where everything spins: oversized type, a ticker, and a record that never stops turning.',url:'vinyly.com/lab',cap2:'Configurator deck: format and AI-style pads, a live cue list and a pulsing "Press it" button',m:[['Spinning hero','A turning record with text circling its grooves and a tonearm.'],['Drop zone','A marching-ants drop area for songs, voice notes or a playlist link.'],['DJ-deck controls','Formats and AI styles as glowing pads; rights checks on the cue list.']]},
+ {k:'d',name:'Sleeve Slide',feel:'A riso-printed zine: newsprint, fluorescent pink and blue inks, italic serif headlines and halftone photos.',url:'vinyly.com',cap2:'Print proof editor: bleed, safe area and live preflight checks on an order slip',m:[['The slide','The record slides out of its sleeve, spins and slides back.'],['Tracklist steps','"How it works" set as A1 to B2 with dotted leaders.'],['Proof sheet','Crop marks, marching bleed lines and handwritten checks build trust in print quality.']]},
+ {k:'e',name:'Vinyly OS',feel:'A retro desktop you can play with: pixel type, chunky windows, a typing headline and a taskbar clock.',url:'vinyly.os',cap2:'Setup wizard: install your songs, with a side-capacity meter and an overflow pop-up',m:[['Typing headline','"> make a record for dad_" types itself out with a blinking caret.'],['now_pressing.exe','A spinning disc and striped progress bar show production as a program.'],['Helpful pop-ups','The Father\'s Day cut-off and Side A overflow arrive as playful dialogs.']]},
+ {k:'f',name:'Jukebox Diner',feel:'50s chrome, cherry red and neon: the whole homepage is a jukebox that plays your life.',url:'vinyly.com',cap2:'Configurator: A/B/C format keys, title-strip tracklist and a coin-slot checkout',m:[['Neon jukebox hero','Flickering neon, chasing lights, bubble tubes, and your record lifting to play.'],['Title strips','Occasions and tracks styled as classic jukebox selection cards.'],['Insert coin','Checkout is "Insert £65 · Play it", with a coin dropping into the slot.']]},
+ {k:'g',name:'Vinyly\'s Home Page',feel:'The full 1998 internet: starfields, rainbow WordArt, marquees, a visitor counter and a webring.',url:'members.vinyly.com/~records',cap2:'Order form: classic HTML form, a 56k upload joke and a pop-up preview',m:[['Pure nostalgia','Blinking NEW! tags, a MIDI player and a spinning 3D record.'],['Under construction','Song Creator teased with yellow-and-black tape.'],['Submit Query','A real, complete order form wearing 1998 clothes.']]}
+];
+const crate=document.getElementById('crate');
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let cur=0;
+D.forEach((d,i)=>{const b=document.createElement('button');b.type='button';b.role='tab';b.id='tab-'+d.k;b.setAttribute('aria-controls','panel');
+  b.innerHTML='<span class="l">'+d.k.toUpperCase()+'</span><span></span>';b.lastChild.textContent=d.name;b.addEventListener('click',()=>show(i,true));crate.appendChild(b);});
+function setVideo(v,src,poster){v.pause();v.poster=poster;v.src=src;v.load();if(!reduce){const p=v.play();if(p&&p.catch)p.catch(()=>{});}}
+function show(i,focus){cur=(i+D.length)%D.length;const d=D[cur];
+  crate.querySelectorAll('button').forEach((b,j)=>{b.setAttribute('aria-selected',j===cur?'true':'false');b.tabIndex=j===cur?0:-1;});
+  document.getElementById('d-no').textContent='Direction '+d.k.toUpperCase()+' · B'+(cur+1);
+  document.getElementById('d-name').textContent=d.name;
+  document.getElementById('d-feel').textContent=d.feel;
+  document.getElementById('d-url1').textContent=d.url;
+  document.getElementById('d-url2').textContent=d.url+'/make';
+  document.getElementById('cap2').textContent=d.cap2;
+  const v1=document.getElementById('v1'),v2=document.getElementById('v2');
+  v1.setAttribute('aria-label',d.name+' homepage, recorded with animation');v2.setAttribute('aria-label',d.name+': '+d.cap2);
+  setVideo(v1,'media/'+d.k+'-home.mp4','media/'+d.k+'-home-poster.jpg');
+  setVideo(v2,'media/'+d.k+'-screen.mp4','media/'+d.k+'-screen-poster.jpg');
+  const mo=document.getElementById('moments');mo.innerHTML='';
+  d.m.forEach(([t,s])=>{const el=document.createElement('div');const b=document.createElement('b');b.textContent=t;el.appendChild(b);el.appendChild(document.createTextNode(s));mo.appendChild(el);});
+  document.getElementById('l1').href='directions/'+d.k+'-home.html';
+  document.getElementById('l2').href='directions/'+d.k+'-screen.html';
+  const img=document.getElementById('fullimg');img.src='media/'+d.k+'-home-full.jpg';img.alt='Full-length homepage for '+d.name;
+  document.getElementById('full').open=false;
+  if(focus)crate.children[cur].focus();
+}
+crate.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();show(cur+1,true);}if(e.key==='ArrowLeft'){e.preventDefault();show(cur-1,true);}});
+document.getElementById('prev').addEventListener('click',()=>show(cur-1));
+document.getElementById('next').addEventListener('click',()=>show(cur+1));
+document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',()=>show(+a.dataset.go)));
+show(0);
+document.getElementById('copy').addEventListener('click',e=>{const btn=e.currentTarget;const t=document.getElementById('email').textContent;
+  const done=()=>{btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy email',1800);};
+  const fallback=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById('email'));const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected, press copy';};
+  try{navigator.clipboard.writeText(t).then(done,fallback);}catch(err){fallback();}});
+</script>
+
+</body>
+</html>

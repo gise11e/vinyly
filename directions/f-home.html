@@ -1,0 +1,110 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Vinyly · Jukebox Diner · Homepage</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Monoton&amp;family=Alfa+Slab+One&amp;family=Pacifico&amp;family=Nunito:wght@400;700;900&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#FFF4E0;text-decoration:none}a:hover{color:#7FD6C2}
+@keyframes jd-flicker{0%,18%,22%,25%,53%,57%,100%{opacity:1;text-shadow:0 0 6px #FF4FA3,0 0 18px #FF4FA3,0 0 40px #FF4FA3}20%,24%,55%{opacity:.4;text-shadow:none}}
+@keyframes jd-bubble{0%{transform:translateY(0);opacity:0}10%{opacity:1}100%{transform:translateY(-420px);opacity:.9}}
+@keyframes jd-chase{0%,100%{background:#F5C542;box-shadow:0 0 10px 2px #F5C542}50%{background:#6B5A20;box-shadow:none}}
+@keyframes jd-lift{0%,25%{transform:translateY(0) rotate(0)}40%,85%{transform:translateY(-60px) rotate(720deg)}100%{transform:translateY(0) rotate(1080deg)}}
+@keyframes jd-spin{to{transform:rotate(360deg)}}
+@keyframes jd-glow{0%,100%{box-shadow:0 0 0 3px #3EC1FF,0 0 20px #3EC1FF}50%{box-shadow:0 0 0 3px #3EC1FF,0 0 44px #3EC1FF}}
+@keyframes jd-coin{0%,60%{opacity:1}70%{opacity:.2}80%{opacity:1}90%{opacity:.2}}
+.jd-flicker{animation:jd-flicker 4s linear infinite}
+.jd-bubble{animation:jd-bubble 4s ease-in infinite}
+.jd-chase{animation:jd-chase .8s steps(1) infinite}
+.jd-lift{animation:jd-lift 6s ease-in-out infinite}
+.jd-spin{animation:jd-spin 3s linear infinite}
+.jd-glow{animation:jd-glow 1.8s ease-in-out infinite}
+.jd-coin{animation:jd-coin 2s steps(1) infinite}
+.jd-chrome{background:linear-gradient(90deg,#8C96A3 0%,#F4F7FA 18%,#AEB8C4 35%,#FFFFFF 50%,#9AA5B1 70%,#E9EEF3 85%,#7D8794 100%)}
+.jd-floor{background-image:repeating-conic-gradient(#FFF4E0 0 25%,#14183A 0 50%);background-size:80px 80px;transform:perspective(500px) rotateX(55deg);transform-origin:top}
+@media (prefers-reduced-motion: reduce){.jd-flicker,.jd-bubble,.jd-chase,.jd-lift,.jd-spin,.jd-glow,.jd-coin{animation:none}}
+</style>
+</head><body>
+
+<div style="background: #14183A; color: #FFF4E0; font-family: 'Nunito', sans-serif; overflow: hidden">
+  <header style="max-width: 1320px; margin: 0 auto; padding: 22px 40px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
+    <a href="#" style="font-family: 'Pacifico', cursive; font-size: 38px; color: #FF4FA3">Vinyly</a>
+    <nav style="display: flex; flex-wrap: wrap; gap: 26px; align-items: center; font-weight: 700; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase">
+      <a href="#">Selections</a><a href="#">Formats</a><a href="#">Extras</a><a href="#">FAQ</a>
+      <a href="#" style="background: #D7263D; padding: 13px 22px; border-radius: 999px; border: 3px solid #FFF4E0">Drop a coin ¢</a>
+    </nav>
+  </header>
+
+  <section style="position: relative; max-width: 1320px; margin: 0 auto; padding: 20px 40px 0; height: 860px">
+    <div style="position: absolute; left: 40px; top: 160px; width: 300px; display: flex; flex-direction: column; gap: 16px; z-index: 2">
+      <span style="font-family: 'Pacifico', cursive; font-size: 44px; line-height: 1.2; color: #7FD6C2">Pick a song.<br>Press a memory.</span>
+      <span style="font-size: 18px; line-height: 1.5">The jukebox that plays your life. Photos on the record, your songs in the grooves.</span>
+    </div>
+    <div style="position: absolute; right: 40px; top: 200px; width: 260px; display: flex; flex-direction: column; gap: 14px; align-items: flex-end; text-align: right; z-index: 2">
+      <span style="font-family: 'Alfa Slab One', serif; font-size: 22px; color: #F5C542">TONIGHT'S SPECIAL</span>
+      <span style="font-size: 18px">Full Print picture disc + your songs</span>
+      <span style="font-family: 'Alfa Slab One', serif; font-size: 64px; line-height: 1">£65</span>
+      <a href="#" class="jd-glow" style="background: #14183A; border-radius: 999px; padding: 14px 24px; font-weight: 900">Make my selection →</a>
+    </div>
+
+    <div style="position: absolute; left: 50%; top: 20px; width: 640px; height: 780px; margin-left: -320px">
+      <div class="jd-chrome" style="position: absolute; inset: 0; border-radius: 320px 320px 40px 40px; box-shadow: 0 30px 80px rgba(0,0,0,0.6)"></div>
+      <div style="position: absolute; inset: 22px; border-radius: 300px 300px 30px 30px; background: #D7263D"></div>
+      <div aria-hidden="true" style="position: absolute; left: 60px; top: 70px; width: 520px; height: 260px; border-radius: 260px 260px 0 0; border: 10px solid #F5C542; border-bottom: none; box-sizing: border-box"></div>
+      <div aria-hidden="true" style="position: absolute; left: 82px; top: 94px; width: 476px; display: flex; justify-content: space-between">
+        <span class="jd-chase" style="width: 14px; height: 14px; border-radius: 50%; margin-top: 180px"></span><span class="jd-chase" style="width: 14px; height: 14px; border-radius: 50%; margin-top: 90px; animation-delay: -.4s"></span><span class="jd-chase" style="width: 14px; height: 14px; border-radius: 50%; margin-top: 30px"></span><span class="jd-chase" style="width: 14px; height: 14px; border-radius: 50%; animation-delay: -.4s"></span><span class="jd-chase" style="width: 14px; height: 14px; border-radius: 50%"></span><span class="jd-chase" style="width: 14px; height: 14px; border-radius: 50%; margin-top: 30px; animation-delay: -.4s"></span><span class="jd-chase" style="width: 14px; height: 14px; border-radius: 50%; margin-top: 90px"></span><span class="jd-chase" style="width: 14px; height: 14px; border-radius: 50%; margin-top: 180px; animation-delay: -.4s"></span>
+      </div>
+      <h1 class="jd-flicker" style="position: absolute; left: 0; right: 0; top: 150px; margin: 0; text-align: center; font-family: 'Monoton', cursive; font-weight: 400; font-size: 82px; color: #FFE3F2">VINYLY</h1>
+
+      <div style="position: absolute; left: 120px; right: 120px; top: 290px; height: 250px; border-radius: 18px; background: radial-gradient(circle at 50% 40%, #2A2F6A, #0B0E26); border: 6px solid #F5C542; overflow: hidden">
+        <img src="images/disc-couple.jpg" alt="" style="position: absolute; left: 20px; bottom: -70px; width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 6px solid #0B0B0B; transform: rotateX(60deg)">
+        <img src="images/disc-mountain.jpg" alt="" style="position: absolute; right: 20px; bottom: -70px; width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 6px solid #0B0B0B; transform: rotateX(60deg)">
+        <img class="jd-lift" src="images/disc-father.jpg" alt="The jukebox lifting your record to play" style="position: absolute; left: 50%; bottom: 10px; width: 170px; height: 170px; margin-left: -85px; border-radius: 50%; object-fit: cover; border: 6px solid #0B0B0B">
+      </div>
+
+      <div aria-hidden="true" style="position: absolute; left: 34px; top: 300px; width: 46px; height: 430px; border-radius: 23px; background: linear-gradient(180deg, #FF4FA3, #3EC1FF, #7FD6C2, #F5C542); overflow: hidden; border: 4px solid #F4F7FA">
+        <span class="jd-bubble" style="position: absolute; left: 12px; bottom: -20px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #FFFFFF"></span><span class="jd-bubble" style="position: absolute; left: 20px; bottom: -20px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid #FFFFFF; animation-delay: -1.3s"></span><span class="jd-bubble" style="position: absolute; left: 8px; bottom: -20px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #FFFFFF; animation-delay: -2.6s"></span>
+      </div>
+      <div aria-hidden="true" style="position: absolute; right: 34px; top: 300px; width: 46px; height: 430px; border-radius: 23px; background: linear-gradient(180deg, #3EC1FF, #FF4FA3, #F5C542, #7FD6C2); overflow: hidden; border: 4px solid #F4F7FA">
+        <span class="jd-bubble" style="position: absolute; left: 14px; bottom: -20px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #FFFFFF; animation-delay: -.7s"></span><span class="jd-bubble" style="position: absolute; left: 8px; bottom: -20px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #FFFFFF; animation-delay: -2s"></span><span class="jd-bubble" style="position: absolute; left: 20px; bottom: -20px; width: 9px; height: 9px; border-radius: 50%; border: 2px solid #FFFFFF; animation-delay: -3.2s"></span>
+      </div>
+
+      <div style="position: absolute; left: 120px; right: 120px; top: 570px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px">
+        <span style="background: #FFF4E0; color: #14183A; border-top: 6px solid #D7263D; border-bottom: 6px solid #D7263D; padding: 6px; text-align: center; font-weight: 900; font-size: 13px">A1 · ANNIVERSARY</span>
+        <span style="background: #FFF4E0; color: #14183A; border-top: 6px solid #3EC1FF; border-bottom: 6px solid #3EC1FF; padding: 6px; text-align: center; font-weight: 900; font-size: 13px">B4 · FATHER'S DAY</span>
+        <span style="background: #FFF4E0; color: #14183A; border-top: 6px solid #FF4FA3; border-bottom: 6px solid #FF4FA3; padding: 6px; text-align: center; font-weight: 900; font-size: 13px">C2 · BIRTHDAY</span>
+      </div>
+      <div aria-hidden="true" style="position: absolute; left: 140px; right: 140px; top: 640px; height: 90px; border-radius: 12px; background: repeating-linear-gradient(90deg, #F4F7FA 0 6px, #8C96A3 6px 12px)"></div>
+      <span class="jd-coin" style="position: absolute; left: 50%; top: 742px; margin-left: -70px; width: 140px; text-align: center; font-family: 'Alfa Slab One', serif; font-size: 14px; color: #FFF4E0">INSERT COIN</span>
+    </div>
+  </section>
+
+  <div aria-hidden="true" style="height: 140px; overflow: hidden; position: relative"><div class="jd-floor" style="position: absolute; left: -50%; right: -50%; top: 0; height: 400px"></div></div>
+
+  <section style="background: #FFF4E0; color: #14183A; padding: 80px 0">
+    <div style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; gap: 32px">
+      <h2 style="margin: 0; font-family: 'Alfa Slab One', serif; font-weight: 400; font-size: 56px; text-align: center; color: #D7263D">Make your selection</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px">
+        <a href="#" style="color: #14183A; background: #FFFFFF; border-top: 10px solid #D7263D; border-bottom: 10px solid #D7263D; padding: 18px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; box-shadow: 0 4px 0 #C9D1D9"><span style="font-family: 'Alfa Slab One', serif; font-size: 15px; color: #D7263D">A1</span><b style="font-size: 22px; font-weight: 900">For your sweetheart</b><i style="font-size: 15px">Anniversaries &amp; Valentine's</i></a>
+        <a href="#" class="jd-glow" style="color: #14183A; background: #FFFFFF; border-top: 10px solid #3EC1FF; border-bottom: 10px solid #3EC1FF; padding: 18px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center"><span style="font-family: 'Alfa Slab One', serif; font-size: 15px; color: #1C6E9A">B4</span><b style="font-size: 22px; font-weight: 900">For Dad</b><i style="font-size: 15px">Father's Day · 20 June</i></a>
+        <a href="#" style="color: #14183A; background: #FFFFFF; border-top: 10px solid #FF4FA3; border-bottom: 10px solid #FF4FA3; padding: 18px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; box-shadow: 0 4px 0 #C9D1D9"><span style="font-family: 'Alfa Slab One', serif; font-size: 15px; color: #B0246E">C2</span><b style="font-size: 22px; font-weight: 900">Birthday bash</b><i style="font-size: 15px">Their year in songs</i></a>
+        <a href="#" style="color: #14183A; background: #FFFFFF; border-top: 10px solid #7FD6C2; border-bottom: 10px solid #7FD6C2; padding: 18px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; box-shadow: 0 4px 0 #C9D1D9"><span style="font-family: 'Alfa Slab One', serif; font-size: 15px; color: #1F7A68">D7</span><b style="font-size: 22px; font-weight: 900">New arrival</b><i style="font-size: 15px">Lullabies &amp; first sounds</i></a>
+        <a href="#" style="color: #14183A; background: #FFFFFF; border-top: 10px solid #F5C542; border-bottom: 10px solid #F5C542; padding: 18px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; box-shadow: 0 4px 0 #C9D1D9"><span style="font-family: 'Alfa Slab One', serif; font-size: 15px; color: #8A6A00">E3</span><b style="font-size: 22px; font-weight: 900">Holiday hits</b><i style="font-size: 15px">Christmas &amp; trips</i></a>
+        <a href="#" style="color: #14183A; background: #FFFFFF; border-top: 10px solid #14183A; border-bottom: 10px solid #14183A; padding: 18px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; box-shadow: 0 4px 0 #C9D1D9"><span style="font-family: 'Alfa Slab One', serif; font-size: 15px">F9</span><b style="font-size: 22px; font-weight: 900">Just for me</b><i style="font-size: 15px">Your own greatest hits</i></a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 80px 0">
+    <div style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; text-align: center">
+      <a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 16px"><span class="jd-chrome" style="width: 230px; height: 230px; border-radius: 50%; display: flex; align-items: center; justify-content: center"><img class="jd-spin" src="images/centre-print.jpg" alt="Centre Print vinyl" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; animation-duration: 6s"></span><b style="font-family: 'Alfa Slab One', serif; font-weight: 400; font-size: 30px">Centre Print</b><span>from [PRICE]</span></a>
+      <a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 16px"><span class="jd-chrome" style="width: 230px; height: 230px; border-radius: 50%; display: flex; align-items: center; justify-content: center"><img class="jd-spin" src="images/disc-wedding.jpg" alt="Full Print picture disc" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; animation-duration: 5s"></span><b style="font-family: 'Alfa Slab One', serif; font-weight: 400; font-size: 30px; color: #FF4FA3">Full Print</b><span>£65</span></a>
+      <a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 16px"><span class="jd-chrome" style="width: 230px; height: 230px; border-radius: 50%; display: flex; align-items: center; justify-content: center"><img src="images/disc-heart-pink.jpg" alt="Pink heart vinyl" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover"></span><b style="font-family: 'Alfa Slab One', serif; font-weight: 400; font-size: 30px">Heart Shape</b><span>from [PRICE]</span></a>
+    </div>
+  </section>
+
+  <footer style="border-top: 4px solid #D7263D; padding: 40px 0">
+    <div style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px">
+      <span class="jd-flicker" style="font-family: 'Monoton', cursive; font-size: 40px; color: #FFE3F2">VINYLY</span>
+      <span style="font-size: 15px">Open 24/7 · Delivery · Returns · FAQ · Contact</span>
+    </div>
+  </footer>
+</div>
+<div style="position:fixed;left:12px;bottom:12px;z-index:9999;display:flex;gap:6px;font:600 13px/1 system-ui,sans-serif"><a href="../index.html#directions" style="background:#141110;color:#F1EAE0;padding:10px 14px;border-radius:99px;text-decoration:none">← Back to proposal</a><span style="background:#C4122F;color:#fff;padding:10px 14px;border-radius:99px">Direction F</span></div></body></html>

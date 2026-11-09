@@ -1,0 +1,72 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Vinyly · Vinyly OS · Setup wizard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&amp;family=VT323&amp;display=swap">
+<style>
+body{margin:0}
+@keyframes wz-blink{50%{background:#FFFFFF}}
+@keyframes wz-shake{0%,86%,100%{transform:translate(0,0)}88%{transform:translate(-8px,0)}90%{transform:translate(8px,0)}92%{transform:translate(-6px,0)}94%{transform:translate(6px,0)}96%{transform:translate(-3px,0)}}
+@keyframes wz-scan{0%{width:0}100%{width:100%}}
+@keyframes wz-spin{to{transform:rotate(360deg)}}
+@keyframes wz-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.wz-blink{animation:wz-blink .8s steps(1) infinite}
+.wz-shake{animation:wz-shake 4s ease-in-out infinite}
+.wz-scan{animation:wz-scan 3s steps(20) infinite}
+.wz-spin{animation:wz-spin 2s linear infinite}
+.wz-float{animation:wz-float 2.6s ease-in-out infinite}
+.wz-desk{background-color:#B8A6E6;background-image:repeating-conic-gradient(#AE9BDF 0 25%,transparent 0 50%);background-size:6px 6px}
+@media (prefers-reduced-motion: reduce){.wz-blink,.wz-shake,.wz-scan,.wz-spin,.wz-float{animation:none}}
+</style>
+</head><body>
+
+<div class="wz-desk" style="min-height: 1100px; color: #111111; font-family: 'VT323', monospace; font-size: 22px; position: relative; display: flex; align-items: center; justify-content: center; padding: 40px; box-sizing: border-box">
+
+  <section role="dialog" aria-label="Vinyly setup wizard" style="width: 100%; max-width: 1080px; background: #FFFFFF; border: 3px solid #111; box-shadow: 12px 12px 0 #111; display: flex; flex-direction: column">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 3px solid #111; background: #6A5ACD; color: #FFFFFF; font-family: 'Silkscreen', sans-serif; font-size: 16px"><span style="width: 16px; height: 16px; border: 2px solid #FFFFFF"></span><span style="flex: 1">Vinyly Setup Wizard — step 3 of 5</span><span>[x]</span></div>
+    <div style="display: grid; grid-template-columns: 260px 1fr">
+      <aside style="background: #111; color: #FFFFFF; padding: 28px 22px; display: flex; flex-direction: column; gap: 24px">
+        <svg class="wz-spin" width="150" height="150" viewBox="0 0 30 30" aria-hidden="true" shape-rendering="crispEdges" style="align-self: center"><rect x="9" y="1" width="12" height="2" fill="#333"></rect><rect x="5" y="3" width="20" height="2" fill="#333"></rect><rect x="3" y="5" width="24" height="4" fill="#333"></rect><rect x="1" y="9" width="28" height="12" fill="#333"></rect><rect x="3" y="21" width="24" height="4" fill="#333"></rect><rect x="5" y="25" width="20" height="2" fill="#333"></rect><rect x="9" y="27" width="12" height="2" fill="#333"></rect><rect x="11" y="11" width="8" height="8" fill="#FF5C8A"></rect><rect x="14" y="14" width="2" height="2" fill="#111"></rect><rect x="5" y="9" width="2" height="2" fill="#555"></rect><rect x="22" y="19" width="2" height="2" fill="#555"></rect></svg>
+        <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 22px">
+          <li style="color: #9AE69A">✓ 1. Pick format</li>
+          <li style="color: #9AE69A">✓ 2. Load photos</li>
+          <li style="background: #FFD23F; color: #111; padding: 2px 8px">► 3. Install songs</li>
+          <li style="color: #AAAAAA">&nbsp;&nbsp;4. Gift options</li>
+          <li style="color: #AAAAAA">&nbsp;&nbsp;5. Press!</li>
+        </ol>
+      </aside>
+      <div style="padding: 28px 32px; display: flex; flex-direction: column; gap: 18px">
+        <h1 style="margin: 0; font-family: 'Silkscreen', sans-serif; font-weight: 700; font-size: 34px; line-height: 1.1">Install your songs</h1>
+        <p style="margin: 0; line-height: 1.1">Select the files to press. Vinyly OS will check each one, set the volume and fit them to Side A and Side B.</p>
+        <div role="group" aria-label="Add songs" style="display: flex; flex-wrap: wrap; gap: 10px">
+          <button type="button" style="font-family: 'Silkscreen', sans-serif; font-size: 14px; border: 3px solid #111; background: #FFD23F; box-shadow: 3px 3px 0 #111; padding: 10px 14px">Browse .mp3/.wav</button>
+          <button type="button" style="font-family: 'Silkscreen', sans-serif; font-size: 14px; border: 3px solid #111; background: #FFFFFF; box-shadow: 3px 3px 0 #111; padding: 10px 14px">Import playlist…</button>
+          <button type="button" style="font-family: 'Silkscreen', sans-serif; font-size: 14px; border: 3px solid #111; background: #FF5C8A; box-shadow: 3px 3px 0 #111; padding: 10px 14px">song_creator.exe +£10</button>
+        </div>
+        <div style="border: 3px solid #111">
+          <div style="display: grid; grid-template-columns: 36px 1fr 90px 70px 170px; gap: 10px; padding: 6px 10px; background: #EEE; border-bottom: 3px solid #111; font-family: 'Silkscreen', sans-serif; font-size: 13px"><span></span><span>NAME</span><span>SIZE</span><span>TIME</span><span>STATUS</span></div>
+          <label style="display: grid; grid-template-columns: 36px 1fr 90px 70px 170px; gap: 10px; padding: 6px 10px; align-items: center"><input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #111"><span>sailing-song.mp3</span><span>7.7 MB</span><span>3:21</span><span style="color: #2E7D32">OK</span></label>
+          <label style="display: grid; grid-template-columns: 36px 1fr 90px 70px 170px; gap: 10px; padding: 6px 10px; align-items: center; background: #F5F2FF"><input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #111"><span>grandads-whistle.m4a</span><span>0.9 MB</span><span>0:48</span><span style="color: #2E7D32">OK · boosted +4dB</span></label>
+          <label style="display: grid; grid-template-columns: 36px 1fr 90px 70px 170px; gap: 10px; padding: 6px 10px; align-items: center"><input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #111"><span>first-boat-trip.wav</span><span>48.1 MB</span><span>4:33</span><span style="color: #C2185B">RIGHTS CHECK</span></label>
+          <label style="display: grid; grid-template-columns: 36px 1fr 90px 70px 170px; gap: 10px; padding: 6px 10px; align-items: center; background: #F5F2FF"><input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #111"><span>summer-mix.wav</span><span>62.4 MB</span><span>5:58</span><span style="display: flex; align-items: center; gap: 6px">scanning <span style="flex: 1; height: 12px; border: 2px solid #111; display: block"><span class="wz-scan" style="display: block; height: 100%; background: #6A5ACD"></span></span></span></label>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="display: flex; justify-content: space-between"><span>SIDE_A capacity</span><span>16:40 / 18:00</span></span>
+          <div style="display: grid; grid-template-columns: repeat(20, 1fr); gap: 3px; border: 3px solid #111; padding: 3px">
+            <span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #111"></span><span style="height: 22px; background: #FF5C8A"></span><span style="height: 22px; background: #FF5C8A"></span><span style="height: 22px; background: #FF5C8A"></span><span class="wz-blink" style="height: 22px; background: #FF5C8A"></span><span style="height: 22px; background: #FFFFFF"></span><span style="height: 22px; background: #FFFFFF"></span>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 12px; border-top: 3px solid #111; padding-top: 18px; margin-top: 4px">
+          <button type="button" style="font-family: 'Silkscreen', sans-serif; font-size: 15px; border: 3px solid #111; background: #FFFFFF; box-shadow: 3px 3px 0 #111; padding: 10px 18px">&lt; Back</button>
+          <button type="button" style="font-family: 'Silkscreen', sans-serif; font-size: 15px; border: 3px solid #111; background: #6A5ACD; color: #FFFFFF; box-shadow: 3px 3px 0 #111; padding: 10px 18px">Next &gt;</button>
+          <button type="button" style="font-family: 'Silkscreen', sans-serif; font-size: 15px; border: 3px solid #111; background: #FFFFFF; box-shadow: 3px 3px 0 #111; padding: 10px 18px">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wz-shake" role="alertdialog" aria-label="Side A almost full" style="position: absolute; right: 70px; top: 70px; width: 380px; background: #FFFFFF; border: 3px solid #111; box-shadow: 8px 8px 0 #111; z-index: 3">
+    <div style="padding: 6px 10px; border-bottom: 3px solid #111; background: #FF5C8A; font-family: 'Silkscreen', sans-serif; font-size: 15px">SIDE_A.OVERFLOW</div>
+    <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px"><span style="line-height: 1.05">Side A is 92% full. Move summer-mix.wav to Side B?</span><span style="display: flex; gap: 10px; justify-content: flex-end"><button type="button" style="font-family: 'Silkscreen', sans-serif; font-size: 13px; border: 3px solid #111; background: #FFFFFF; padding: 8px 12px">Keep</button><button type="button" style="font-family: 'Silkscreen', sans-serif; font-size: 13px; border: 3px solid #111; background: #FFD23F; padding: 8px 12px">Move it</button></span></div>
+  </div>
+
+  <div class="wz-float" style="position: absolute; left: 70px; bottom: 60px; width: 300px; background: #FFFFE0; border: 3px solid #111; box-shadow: 6px 6px 0 #111; padding: 14px 16px; line-height: 1.05; z-index: 3"><b style="font-family: 'Silkscreen', sans-serif; font-size: 14px">TIP.TXT</b><br>Got a Spotify or Apple Music playlist? Paste the link: we'll build the tracklist, you add the audio.</div>
+</div>
+<div style="position:fixed;left:12px;bottom:12px;z-index:9999;display:flex;gap:6px;font:600 13px/1 system-ui,sans-serif"><a href="../index.html#directions" style="background:#141110;color:#F1EAE0;padding:10px 14px;border-radius:99px;text-decoration:none">← Back to proposal</a><span style="background:#C4122F;color:#fff;padding:10px 14px;border-radius:99px">Direction E</span></div></body></html>
