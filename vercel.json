@@ -1,5 +1,8 @@
 {
   "cleanUrls": false,
+  "proxy": {
+    "entrypoint": "proxy.js"
+  },
   "headers": [
     {
       "source": "/media/:path*",

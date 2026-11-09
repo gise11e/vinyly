@@ -12,10 +12,10 @@ A static site with no build step and no dependencies:
 4. Colours and fonts are tokens at the top of the `<style>` block (`:root`), with a dark-mode set below them.
 5. Preview locally: in Cursor's terminal run `npm run dev` (or `npx serve .` / `python3 -m http.server`) and open the address it prints. Opening the file directly also works, but videos load more reliably from a local server.
 
-## Put it online (pick one)
-- **Vercel:** `npx vercel` in this folder, accept the defaults. Add a password with Vercel's Deployment Protection if the tender is confidential.
-- **Netlify:** drag this folder onto app.netlify.com/drop.
-- **Any web host:** upload the whole folder as it is.
+## Put it online
+The live site is a static Vercel deploy. Every URL asks for HTTP basic auth (username `vinyly`; password is the `SITE_PASSWORD` env var on Vercel, not stored in this repo). Local `npm run dev` stays unlocked.
+
+To redeploy: `npx vercel --prod --yes`. To rotate the password: `npx vercel env add SITE_PASSWORD --force --environment production,preview` then redeploy.
 
 The page sets `noindex`, so search engines will not list it. Remove that meta tag if you want it public.
 
